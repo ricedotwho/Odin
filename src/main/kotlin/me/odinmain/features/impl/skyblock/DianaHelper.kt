@@ -91,7 +91,7 @@ object DianaHelper : Module(
             PlayerUtils.alert("§6§lInquisitor!")
         }
 
-        onMessage(Regex("^(You dug out a Griffin Burrow! .+|You finished the Griffin burrow chain! \\(4\\/4\\))$")) {
+        onMessage(Regex("^(You dug out a Griffin Burrow! \\(\\d+\\/\\d+\\)|You Finished the Griffin burrow chain! \\(\\d+\\/\\d+\\))\$")) {
             DianaBurrowEstimate.onBurrowDug()
         }
     }
