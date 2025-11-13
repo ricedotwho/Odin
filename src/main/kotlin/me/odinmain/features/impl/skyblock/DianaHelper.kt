@@ -55,7 +55,7 @@ object DianaHelper : Module(
     var renderPos: Vec3? = null
 
     private inline val hasSpade: Boolean
-        get() = mc.thePlayer?.inventory?.mainInventory?.find { it.skyblockID.equalsOneOf( "ANCESTRAL_SPADE", "DEIFIC_SPADE") } != null
+        get() = mc.thePlayer?.inventory?.mainInventory?.find { it.skyblockID.equalsOneOf( "ANCESTRAL_SPADE", "ARCHAIC_SPADE", "DEIFIC_SPADE") } != null
 
     init {
         execute(2000) {
@@ -91,7 +91,7 @@ object DianaHelper : Module(
             PlayerUtils.alert("§6§lInquisitor!")
         }
 
-        onMessage(Regex("^(You dug out a Griffin Burrow! \\(\\d+\\/\\d+\\)|You Finished the Griffin burrow chain! \\(\\d+\\/\\d+\\))\$")) {
+        onMessage(Regex("^(You dug out a Griffin Burrow! \\(\\d+\\/\\d+\\)|You finished the Griffin burrow chain! \\(\\d+\\/\\d+\\))$")) {
             DianaBurrowEstimate.onBurrowDug()
         }
     }
@@ -123,7 +123,7 @@ object DianaHelper : Module(
 
     @SubscribeEvent
     fun onRightClick(event: ClickEvent.Right) {
-        if (!isDoingDiana || !isHolding("ANCESTRAL_SPADE", "DEIFIC_SPADE") || !autoWarp || isLegitVersion) return
+        if (!isDoingDiana || !isHolding("ANCESTRAL_SPADE", "ARCHAIC_SPADE", "DEIFIC_SPADE") || !autoWarp || isLegitVersion) return
         runIn((autoWarpWaitTime * 20).roundToInt()) {
             if (!cmdCooldown.hasTimePassed()) return@runIn
             modMessage("§6Warping to ${warpLocation?.displayName ?: return@runIn}")
