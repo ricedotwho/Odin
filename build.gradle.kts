@@ -77,4 +77,9 @@ allprojects {
         options.encoding = "UTF-8"
         mustRunAfter(":processResources")
     }
+
+    tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+        relocate("okhttp3", "me.odinmain.shadow.okhttp3")
+        relocate("okio", "me.odinmain.shadow.okio")
+    }
 }

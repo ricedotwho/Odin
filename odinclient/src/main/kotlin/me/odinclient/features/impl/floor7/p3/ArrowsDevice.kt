@@ -436,8 +436,6 @@ object ArrowsDevice : Module(
         }
     }
 
-    private val colors = listOf(firstAimPositionColor, secondAimPositionColor, thirdAimPositionColor)
-
     @SubscribeEvent
     fun onRenderWorldLast(event: RenderWorldLastEvent) {
         if (!DungeonUtils.inDungeons || DungeonUtils.getF7Phase() != M7Phases.P3 || !solver) return
@@ -448,6 +446,7 @@ object ArrowsDevice : Module(
             Renderer.drawBlock(it, targetPositionColor, depth = depthCheck, fillAlpha = targetPositionColor.alphaFloat, outlineAlpha = targetPositionColor.alphaFloat)
         }
         if (showAimPositions) {
+            val colors = listOf(firstAimPositionColor, secondAimPositionColor, thirdAimPositionColor)
             optimalAimPositions.take(3).forEachIndexed { index, aimPos ->
                 Renderer.drawBlock(aimPos.position.toBlockPos(), colors[index], depth = true, fillAlpha = colors[index].alphaFloat, outlineAlpha = colors[index].alphaFloat)
             }
