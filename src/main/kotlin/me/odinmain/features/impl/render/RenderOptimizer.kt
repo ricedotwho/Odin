@@ -366,7 +366,11 @@ object RenderOptimizer : Module(
 
         for (tileEntity in mc.theWorld.loadedTileEntityList) {
             if (tileEntity is TileEntitySign || tileEntity is TileEntityEndPortal) continue
-            tileEntity?.let { if (camera.isBoundingBoxInFrustum(it.renderBoundingBox)) TileEntityRendererDispatcher.instance.renderTileEntity(it, partialTicks, -1) }
+            tileEntity?.let {
+                try {
+                    if (camera.isBoundingBoxInFrustum(it.renderBoundingBox)) TileEntityRendererDispatcher.instance.renderTileEntity(it, partialTicks, -1)
+                } catch (_: NullPointerException) { }
+            }
         }
     }
 
