@@ -119,6 +119,10 @@ object LeapMenu : Module(
         leapTo(playerToLeap.name, gui)
 
         event.isCanceled = true
+
+        mc.addScheduledTask {
+            mc.thePlayer?.closeScreen()
+        }
     }
 
     @SubscribeEvent
