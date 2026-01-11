@@ -40,6 +40,7 @@ object LeapMenu : Module(
     private val backgroundColor by ColorSetting("Background Color", Colors.MINECRAFT_DARK_GRAY.withAlpha(0.75f), true, desc = "Color of the background of the leap menu.").withDependency { !colorStyle }
     private val scale by NumberSetting("Scale", 0.5f, 0.1f, 1f, 0.1f, desc = "Scale of the leap menu.", unit = "x")
     private val useNumberKeys by BooleanSetting("Use Number Keys", false, desc = "Use keyboard keys to leap to the player you want, going from left to right, top to bottom.")
+    private val autoClose by BooleanSetting("Auto Close", false, desc = "Closes the gui once a player is clicked")
     private val topLeftKeybind by KeybindSetting("Top Left", Keyboard.KEY_1, "Used to click on the first person in the leap menu.").withDependency { useNumberKeys }
     private val topRightKeybind by KeybindSetting("Top Right", Keyboard.KEY_2, "Used to click on the second person in the leap menu.").withDependency { useNumberKeys }
     private val bottomLeftKeybind by KeybindSetting("Bottom Left", Keyboard.KEY_3, "Used to click on the third person in the leap menu.").withDependency { useNumberKeys }
@@ -120,8 +121,10 @@ object LeapMenu : Module(
 
         event.isCanceled = true
 
-        mc.addScheduledTask {
-            mc.thePlayer?.closeScreen()
+        if (autoClose) {
+            mc.addScheduledTask {
+                mc.thePlayer?.closeScreen()
+            }
         }
     }
 
