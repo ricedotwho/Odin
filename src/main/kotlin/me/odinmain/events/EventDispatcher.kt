@@ -44,7 +44,7 @@ object EventDispatcher {
      */
     @SubscribeEvent
     fun onPacket(event: PacketEvent.Receive) {
-        if (event.packet is S32PacketConfirmTransaction && !event.packet.func_148888_e()) ServerTickEvent().postAndCatch()
+        if (event.packet is S32PacketConfirmTransaction && !event.packet.func_148888_e() && event.packet.actionNumber < 0) ServerTickEvent().postAndCatch()
 
         if (event.packet is S29PacketSoundEffect && inDungeons && !inBoss && (event.packet.soundName.equalsOneOf("mob.bat.hurt", "mob.bat.death") && event.packet.volume == 0.1f)) SecretPickupEvent.Bat(event.packet).postAndCatch()
 
